@@ -56,7 +56,7 @@ $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $outDir = Join-Path $scriptDir "out"
 
 Write-Host "=== FUEL Landing Page Deploy to Hostinger ===" -ForegroundColor Cyan
-Write-Host "Remote: $RemoteUser@$RemoteHost:$RemotePort$RemotePath" -ForegroundColor Cyan
+Write-Host "Remote: $RemoteUser@${RemoteHost}:$RemotePort$RemotePath" -ForegroundColor Cyan
 Write-Host ""
 
 # ---------------------------------------------------------------------------
@@ -93,7 +93,7 @@ $rsyncExe = Get-Command rsync -ErrorAction SilentlyContinue
 
 if ($rsyncExe) {
     Write-Host "Using rsync (delta transfer, compressed)." -ForegroundColor Green
-    rsync -avz --delete -e "ssh $sshOptions" "$outDir/" "$RemoteUser@$RemoteHost:$RemotePath"
+    rsync -avz --delete -e "ssh $sshOptions" "$outDir/" "$RemoteUser@${RemoteHost}:$RemotePath"
     if ($LASTEXITCODE -ne 0) {
         Write-Error "rsync failed. Aborting deploy."
         exit 1
@@ -101,9 +101,16 @@ if ($rsyncExe) {
 } else {
     Write-Warning "rsync not found on PATH. Install rsync (Git Bash / WSL / cwRsync) for delta sync."
     Write-Warning "Falling back to scp (full re-upload, slower)."
-    $scpCmd = "scp -P $RemotePort -r $outDir/* $RemoteUser@$RemoteHost:$RemotePath"
-    Write-Host "Running: $scpCmd" -ForegroundColor Yellow
-    & $scpCmd
+
+    # scp does not expand local glob patterns (rsync does), so enumerate the source
+    # files explicitly and pass them as separate arguments to scp.
+    $sourceItems = @(Get-ChildItem -Path $outDir -Force | Select-Object -ExpandProperty FullName)
+    if ($sourceItems.Count -eq 0) {
+        Write-Error "No files found in $outDir to upload. Run 'pnpm build' first."
+        exit 1
+    }
+    Write-Host "Running: scp -P $RemotePort -r <$($sourceItems.Count) items> $RemoteUser@${RemoteHost}:$RemotePath" -ForegroundColor Yellow
+    & scp -P $RemotePort -r $sourceItems "$RemoteUser@${RemoteHost}:$RemotePath"
     if ($LASTEXITCODE -ne 0) {
         Write-Error "scp failed. Aborting deploy."
         exit 1

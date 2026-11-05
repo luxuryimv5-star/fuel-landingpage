@@ -2,52 +2,55 @@
 
 ## General
 
-- [Principle — e.g. Keep modules small and single-purpose]
-- [Principle — e.g. Fix root causes, do not layer workarounds]
-- [Principle — e.g. Do not mix unrelated concerns in one
-  component or route]
+- Keep modules small and single-purpose.
+- Fix root causes; do not layer workarounds.
+- Do not mix unrelated concerns in one component or route.
+- Use HTML5 semantic tags where appropriate (`<header>`, `<nav>`, `<section>`, `<main>`, `<footer>`).
+- Always resort to Next.js tags first: `next/Link` for links, `next/Image` for images.
 
 ## TypeScript
 
-- [Rule — e.g. Strict mode is required throughout the project]
-- [Rule — e.g. Avoid any — use explicit interfaces or narrowly
-  scoped types]
-- [Rule — e.g. Validate unknown external input at system
-  boundaries before trusting it]
+- Strict mode is required throughout the project.
+- `any` is forbidden — define explicit interfaces instead.
+- `unknown` must be narrowed — never left unresolved.
+- No implicit types — all function parameters, return types, and API responses explicitly typed.
+- No non-null assertions (`!`) — handle null/undefined explicitly.
 
-## [Framework — e.g. Next.js]
+## Next.js
 
-- [Convention — e.g. Default to server components]
-- [Convention — e.g. Add use client only when browser
-  interactivity requires it]
-- [Convention — e.g. Keep route handlers focused on a
-  single responsibility]
+- Default to Server Components; add `'use client'` only when browser interactivity requires it (Framer Motion sections, nav).
+- Use `next/Link` for all internal navigation; plain `<a>` with `rel="noopener noreferrer"` only for external links (app store).
+- Use `next/Image` for all images with `width`, `height`, `alt`, and `priority` where appropriate.
+- Keep route handlers focused on a single responsibility.
+- Use the App Router; every major section gets a stable `id` for scroll-to behavior.
 
 ## Styling
 
-- [Rule — e.g. Use CSS custom property tokens — no
-  hardcoded hex values]
-- [Rule — e.g. Follow the border radius scale defined
-  in ui-context.md]
+- Use CSS custom property tokens — no hardcoded hex values (see `ui-context.md`).
+- Follow the border radius scale defined in `ui-context.md`.
+- Tailwind utility classes; avoid arbitrary values where a token exists.
+- Mobile-first responsive design; mobile is designed, not shrunk.
 
-## API Routes
+## Component Conventions
 
-- [Rule — e.g. Validate and parse request input before
-  any logic runs]
-- [Rule — e.g. Enforce auth and ownership before any mutation]
-- [Rule — e.g. Return consistent, predictable response shapes]
-
-## Data and Storage
-
-- [Rule — e.g. Metadata belongs in the database]
-- [Rule — e.g. Large generated content belongs in file
-  or blob storage]
-- [Rule — e.g. Do not store large content directly in
-  the database]
+- shadcn Base UI components only (unstyled primitives).
+- All component props explicitly typed with interfaces.
+- Framer Motion used for subtle entrance/scroll motion ("whispers").
+- Section components accept no required props unless needed; expose an `id` for scroll-to.
 
 ## File Organization
 
-- `[folder]/` — [What belongs here]
-- `[folder]/` — [What belongs here]
-- `[folder]/` — [What belongs here]
-- `[folder]/` — [What belongs here]s
+- `app/layout.tsx` — Root layout, metadata, fonts
+- `app/page.tsx` — Landing page (imports sections)
+- `app/team/[slug]/page.tsx` — Dynamic team member page (blank typed stub)
+- `components/nav/` — Nav bar component(s)
+- `components/sections/` — Hero, Features, HowItWorks, Team, CTA, Footer
+- `components/ui/` — shadcn Base UI primitives
+- `lib/` — Utilities (`cn`, scroll helpers, section ID constants)
+- `public/img/` — Images (FUEL logo, intentional imagery)
+- `app/globals.css` — Tailwind + design token CSS variables
+
+## Verification
+
+- `pnpm run build` must pass before considering a unit complete.
+- `pnpm run lint` must pass with zero errors.

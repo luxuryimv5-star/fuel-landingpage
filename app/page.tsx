@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       "FUEL helps drivers find the cheapest, safest, and most vehicle-appropriate gas stations nearby.",
     type: "website",
-    url: "https://fuelapp.com",
+    url: "https://fuel-us.com",
   },
 };
 
@@ -41,8 +41,8 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "FUEL",
-            url: "https://fuelapp.com",
-            logo: "https://fuelapp.com/img/logo.png",
+            url: "https://fuel-us.com",
+            logo: "https://fuel-us.com/img/logo.png",
             description:
               "FUEL helps drivers find the cheapest, safest, and most vehicle-appropriate gas stations nearby.",
             sameAs: [
@@ -65,10 +65,10 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "FUEL",
-            url: "https://fuelapp.com",
+            url: "https://fuel-us.com",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://fuelapp.com/search?q={search_term_string}",
+              target: "https://fuel-us.com/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           }),

@@ -10,6 +10,12 @@ const TEAM_MEMBERS: readonly { readonly slug: string; readonly name: string }[] 
   { slug: "noah-goss", name: "Noah Goss" },
 ];
 
+export function generateStaticParams() {
+  return TEAM_MEMBERS.map((member) => ({
+    slug: member.slug,
+  }));
+}
+
 export function generateMetadata({
   params,
 }: { readonly params: TeamMemberPageParams }): Metadata {

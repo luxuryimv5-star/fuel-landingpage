@@ -48,7 +48,13 @@ param(
     [string]$RemotePath = "/domains/fuel-us.com/public_html/",
 
     [Parameter(Mandatory = $false)]
-    [switch]$SkipBuild
+    [switch]$SkipBuild,
+
+    [Parameter(Mandatory = $false)]
+    [string]$IdentityFile,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$BatchMode
 )
 
 $ErrorActionPreference = "Stop"
@@ -109,8 +115,29 @@ if ($rsyncExe) {
         Write-Error "No files found in $outDir to upload. Run 'pnpm build' first."
         exit 1
     }
-    Write-Host "Running: scp -P $RemotePort -r <$($sourceItems.Count) items> $RemoteUser@${RemoteHost}:$RemotePath" -ForegroundColor Yellow
-    & scp -P $RemotePort -r $sourceItems "$RemoteUser@${RemoteHost}:$RemotePath"
+
+    # Build scp arguments separately so each token is parsed as its own argument.
+    # StrictHostKeyChecking=accept-new matches the rsync path and avoids a host-key
+    # prompt on first connect. BatchMode is intentionally opt-in: this is a
+    # user-run deployment, so interactive password / passphrase prompts must
+    # remain available (BatchMode=yes disables them and causes Hostinger's
+    # "Too many authentication failures" when ssh-agent holds multiple keys).
+    $scpArgs = @(
+        "-P", $RemotePort,
+        "-o", "StrictHostKeyChecking=accept-new"
+    )
+    if ($BatchMode) {
+        $scpArgs += @("-o", "BatchMode=yes")
+    }
+    if ($PSBoundParameters.ContainsKey('IdentityFile')) {
+        $scpArgs += @("-o", "IdentitiesOnly=yes", "-i", $IdentityFile)
+    }
+    $scpArgs += @("-r")
+    $scpArgs += $sourceItems
+    $scpArgs += "$RemoteUser@${RemoteHost}:$RemotePath"
+
+    Write-Host "Running: scp $($scpArgs -join ' ')" -ForegroundColor Yellow
+    & scp @scpArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Error "scp failed. Aborting deploy."
         exit 1

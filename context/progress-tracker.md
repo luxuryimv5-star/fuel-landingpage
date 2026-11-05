@@ -89,3 +89,6 @@ Update this file after every meaningful implementation change.
 - All phases complete: templates, components, SEO, whitespace, color tokens, logo consistency, static export, deploy script.
 - Fixed `next/Image` + `output: "export"` incompatibility by adding `images: { unoptimized: true }` to next.config.ts
 - deploy.ps1 ready for user execution: `./deploy.ps1` builds and rsyncs to Hostinger.
+- Fixed 3 PowerShell variable-reference errors in deploy.ps1 (`$RemoteHost:` → `${RemoteHost}:` on lines 59, 96, 104) — now valid `user@host:path` syntax.
+- Fixed scp fallback: invokes `scp` directly with separate arguments via `& scp -P ... -r ... ...` instead of passing a command string (which PowerShell treated as a command name).
+- Fixed scp local source expansion: enumerates `out/` with `Get-ChildItem -Force` (includes hidden entries) and passes each full path as a separate argument, since OpenSSH scp does not expand local globs like `"$outDir/*"`.

@@ -20,7 +20,7 @@ export default function ComingSoonPage() {
             width={64}
             height={64}
             priority
-            className="mx-auto mb-8 h-20 w-20"
+            className="mx-auto mb-8 h-20 w-20 rounded-2xl border border-border shadow-2xl"
           />
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl mb-6">
             Coming Soon

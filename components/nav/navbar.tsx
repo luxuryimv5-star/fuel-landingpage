@@ -72,7 +72,7 @@ export function Navbar() {
             width={32}
             height={32}
             priority
-            className="h-8 w-8"
+            className="h-8 w-8 rounded-2xl border border-border shadow-2xl"
           />
           <span className="font-bold text-lg tracking-tight text-foreground">
             FUEL

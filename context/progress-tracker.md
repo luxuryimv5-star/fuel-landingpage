@@ -4,13 +4,10 @@ Update this file after every meaningful implementation change.
 
 ## Current Phase
 
-- **Phase 4:** SEO optimization — complete
-- **Phase 5:** Whitespace refinement — complete
-- **Phase 6:** Coming-soon page — complete
+- **Phase 7:** FUEL color tokens + logo consistency — complete
 
 ## Current Goal
 
-- Add FUEL color tokens to globals.css (restrained palette)
 - Prepare for Hostinger static export (no Vercel)
 
 ## Completed
@@ -33,47 +30,45 @@ Update this file after every meaningful implementation change.
 - **Phase 3:** `tsc --noEmit` passes with zero errors ✅
 - **Phase 3:** `pnpm run lint` passes with zero errors/warnings ✅
 - **Phase 3:** `pnpm run build` passes (static pages: `/`, `/team/[slug]`) ✅
-- **Phase 4:** Root SEO metadata in `app/layout.tsx` ✅
-  - title template, description, keywords, authors, creator, publisher
-  - robots meta (index, follow, max-snippet, max-image-preview, max-video-preview)
-  - Open Graph (title, description, url, siteName, type, locale, images)
-  - Twitter cards (summary_large_image, title, description, images, creator, site)
-  - alternates canonical URL
+- **Phase 4:** Root SEO metadata in `app/layout.tsx` ✅ — title template, description, keywords, authors, robots meta, Open Graph, Twitter cards, canonical URL
 - **Phase 4:** Page-level metadata in `app/page.tsx` ✅
-- **Phase 4:** JSON-LD structured data in `app/page.tsx` ✅
-  - Organization (name, url, logo, description, sameAs, contactPoint)
-  - WebSite (name, url, potentialAction search)
+- **Phase 4:** JSON-LD structured data in `app/page.tsx` ✅ — Organization + WebSite
 - **Phase 4:** `public/robots.txt` ✅ (static file served by Next.js)
-- **Phase 4:** `app/sitemap.ts` ✅ (generates /sitemap.xml with / and /team/noah-goss)
-- **Phase 4:** `tsc --noEmit` passes with zero errors ✅
-- **Phase 4:** `pnpm run lint` passes with zero errors/warnings ✅
-- **Phase 5:** Whitespace refined to balanced UI/UX values ✅
-  - All sections consistent `px-6` horizontal padding (including Hero — fixed missing `px-6`)
-  - Hero: `pt-20 pb-24 sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-32`
-  - Content sections: `py-20 sm:py-28 lg:py-32`, title `mb-12`, grid gap `gap-6` (24px)
-  - Footer: `pt-14 pb-8`
-  - Hero badge: `self-start w-fit px-2 py-0.5`
-- **Phase 5:** `tsc --noEmit` passes ✅
-- **Phase 5:** `pnpm run lint` passes ✅
-- **Phase 5:** `pnpm run build` passes ✅
+- **Phase 4:** `app/sitemap.ts` ✅ — generates /sitemap.xml with /, /coming-soon, /team/noah-goss
+- **Phase 4:** `tsc --noEmit` passes ✅
+- **Phase 4:** `pnpm run lint` passes ✅
+- **Phase 5:** Whitespace refined to balanced UI/UX values ✅ — all sections consistent `px-6`, hero `pt-20 pb-24`, grid gap `gap-6`, footer `pt-14 pb-8`, hero badge `self-start w-fit`
 - **Phase 6:** Coming-soon page built (`app/coming-soon/page.tsx` + `app/coming-soon/layout.tsx`) ✅ — email capture form, "Notify Me" CTA, Framer Motion entrance, metadata via layout.tsx
 - **Phase 6:** All "Download on App Store" buttons rerouted to `/coming-soon` (navbar desktop, navbar mobile, hero, CTA) ✅ — removed `window.open`/`APP_STORE_URL`, using `next/Link` instead
 - **Phase 6:** `tsc --noEmit` passes ✅
 - **Phase 6:** `pnpm run lint` passes ✅
-- **Phase 6:** `pnpm run build` passes (static pages: `/`, `/coming-soon`, `/team/[slug]`) ✅
+- **Phase 7:** FUEL color tokens added to globals.css (`app/globals.css`) ✅
+  - 11 CSS custom properties: olive-base, olive-surface, olive-text-primary, olive-text-muted, olive-success, coral-primary, coral-error, coral-highlight, beige-border, beige-background, beige-text
+  - Light mode values: olive `#6b8d58` / coral `#ff6b6b` / beige `#e8e6e3`
+  - Dark mode values: muted variants for all tokens
+  - Exposed via `@theme inline` as `--color-fuel-*` Tailwind classes
+- **Phase 7:** All logo.png Image usages consistent with Hero section ✅
+  - `components/nav/navbar.tsx`: `h-8 w-8` → `h-8 w-8 rounded-2xl border border-border shadow-2xl`
+  - `components/sections/hero.tsx`: already had `rounded-2xl border border-border shadow-2xl` (reference style)
+  - `app/coming-soon/page.tsx`: `mx-auto mb-8 h-20 w-20` → `mx-auto mb-8 h-20 w-20 rounded-2xl border border-border shadow-2xl`
+  - Metadata/JSON-LD references (app/page.tsx, app/layout.tsx) are not Image components, no styling needed
+- **Phase 7:** `tsc --noEmit` passes ✅
+- **Phase 7:** `pnpm run lint` passes ✅
+- **Phase 7:** `pnpm run build` passes ✅
 
 ## In Progress
 
-- None.
+- Adding FUEL color tokens (olive/coral/beige) to globals.css
+- Making all logo.png usages consistent (rounded-2xl, border border-border, shadow-2xl)
 
 ## Next Up
 
-- Add FUEL color tokens to globals.css (restrained palette: olive/coral/beige)
+- Verify `tsc --noEmit`, `pnpm run lint`, `pnpm run build` pass
 - Prepare for Hostinger static export (no Vercel)
 
 ## Open Questions
 
-- Confirm exact app-store URL(s) for download CTAs (Apple App Store link needed)
+- Confirm exact app-store URL(s) for download CTAs (Apple App Store link needed — for post-launch)
 - Confirm team member slugs/content to leave as blank stub placeholders
 - Confirm FUEL logo asset location (`public/img/logo.png` exists — verify usage)
 - Confirm canonical domain URL for sitemap/robots (currently https://fuelapp.com)
@@ -92,7 +87,7 @@ Update this file after every meaningful implementation change.
 
 ## Session Notes
 
-- Branch: `feature/fuel-landingpage-components` (off `main`, not committed — user handles commits).
+- Branch: `feature/fuel-color-tokens-and-logo-consistency` (off `main`, not committed — user handles commits).
 - Template work committed to main via PR #1; component work on feature branch.
 - Corrections applied: hero badge now reads "Coming Soon to the App Store"; metadata title/description updated from boilerplate.
 - Removed redundant "Meet the team" link from CTA section — Team section precedes CTA.

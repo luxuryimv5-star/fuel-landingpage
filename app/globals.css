@@ -10,6 +10,17 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
+  --color-fuel-olive-base: var(--fuel-olive-base);
+  --color-fuel-olive-surface: var(--fuel-olive-surface);
+  --color-fuel-olive-text-primary: var(--fuel-olive-text-primary);
+  --color-fuel-olive-text-muted: var(--fuel-olive-text-muted);
+  --color-fuel-olive-success: var(--fuel-olive-success);
+  --color-fuel-coral-primary: var(--fuel-coral-primary);
+  --color-fuel-coral-error: var(--fuel-coral-error);
+  --color-fuel-coral-highlight: var(--fuel-coral-highlight);
+  --color-fuel-beige-border: var(--fuel-beige-border);
+  --color-fuel-beige-background: var(--fuel-beige-background);
+  --color-fuel-beige-text: var(--fuel-beige-text);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -73,6 +84,17 @@
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
+  --fuel-olive-base: #6b8d58;
+  --fuel-olive-surface: #8fa26f;
+  --fuel-olive-text-primary: #2d3a20;
+  --fuel-olive-text-muted: #5a6b3d;
+  --fuel-olive-success: #7cb34a;
+  --fuel-coral-primary: #ff6b6b;
+  --fuel-coral-error: #ff5252;
+  --fuel-coral-highlight: #ff8c6a;
+  --fuel-beige-border: #e8e6e3;
+  --fuel-beige-background: #f5f5f0;
+  --fuel-beige-text: #4a4a45;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -115,6 +137,17 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --fuel-olive-base: #3d4a2a;
+  --fuel-olive-surface: #4a5a3a;
+  --fuel-olive-text-primary: #a8b890;
+  --fuel-olive-text-muted: #8a9870;
+  --fuel-olive-success: #5d8c3a;
+  --fuel-coral-primary: #ff8c6a;
+  --fuel-coral-error: #ff7777;
+  --fuel-coral-highlight: #ffa98e;
+  --fuel-beige-border: #2a2a26;
+  --fuel-beige-background: #1a1a18;
+  --fuel-beige-text: #b8b8b0;
 }
 
 @layer base {

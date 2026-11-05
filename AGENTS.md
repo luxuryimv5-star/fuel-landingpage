@@ -8,11 +8,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# AGENTS.md — Project Agent Template
+# AGENTS.md — FUEL Landing Page
 
 ## 1. Project Title
 
-**[Project Name]** – Brief description of the project's purpose and scope.
+**FUEL Landing Page** — Marketing site for the FUEL iOS app that helps drivers find the cheapest, safest, and most vehicle-appropriate gas stations nearby (styled after Find My iPhone, but for gas stations).
 
 ## 2. Application Building Context
 
@@ -20,11 +20,10 @@ Read the following files in order before implementing or making any architectura
 
 1. `context/project-overview.md` – product definition, goals, features, and scope
 2. `context/architecture.md` – system structure, boundaries, storage model, and invariants
-3. `context/02-database-schema.md` – production database tables, indexes, and relationships
-4. `context/ui-context.md` – theme, colors, typography, and component conventions
-5. `context/code-standards.md` – implementation rules and conventions
-6. `context/ai-workflow-rules.md` – development workflow, scoping rules, and delivery approach
-7. `context/progress-tracker.md` – current phase, completed work, open questions, and next steps
+3. `context/ui-context.md` – theme, colors, typography, and component conventions
+4. `context/code-standards.md` – implementation rules and conventions
+5. `context/ai-workflow-rules.md` – development workflow, scoping rules, and delivery approach
+6. `context/progress-tracker.md` – current phase, completed work, open questions, and next steps
 
 ## 3. Workflow
 
@@ -46,87 +45,85 @@ Read the following files in order before implementing or making any architectura
   - No non-null assertions (`!`) — handle null/undefined explicitly
 - **Protected Files — Do Not Modify Without Explicit Permission**
   - `package.json` — only touched for installs/uninstalls
-  - `contexts/AuthContext.tsx` — core auth, changes require explicit approval
-  - `services/auth.service.ts` — core auth service
-  - `app.json` — Expo config, changes require explicit approval
+  - `next.config.ts` — Next.js config, changes require explicit approval
 - **Branch Creation Process**
-  1. Create a branch FIRST — tell Tone "Branch created: [name]"
+  1. Create a branch FIRST — tell the user "Branch created: [name]"
   2. Wait for approval before making changes
-  3. NEVER commit — Tone commits all changes
+  3. NEVER commit — the user handles commits personally
   4. NEVER modify `package.json` except when installing/uninstalling packages
 - **Progress Tracking**
   - Update `context/progress-tracker.md` after every meaningful change
 
 ## 4. Project Overview
 
-**Project Name** – *[brief description]*
+**Project Name** – FUEL Landing Page
 
-- **Purpose:** *[Why this project exists]*
-- **Scope:** *[What is included / out of scope]*
-- **Owner:** *[Team member or role]*
+- **Purpose:** Market the FUEL iOS app to drivers; convert visitors into app downloads. Single-page scroll marketing site with nav bar, scroll-to sections, and a Team section routing to dynamic member pages (left blank for the team to fill in).
+- **Scope:** Next.js App Router landing page, Tailwind CSS, Framer Motion, shadcn/ui Base UI, static deploy to Hostinger (no Vercel). Out of scope: backend, auth, user accounts, blog, e-commerce.
+- **Owner:** Noah Goss — Product Manager (contact); engineering owns build/deploy.
 
 ## 5. Architecture
 
 ### Tech Stack
 
-- **Framework:** *[e.g., React, Vue, Flutter, SwiftUI]*
-- **Language:** *[e.g., TypeScript, Kotlin, Swift, Rust]*
-- **Key Libraries:** *[list relevant libraries]*
+- **Framework:** Next.js 16 (App Router) + TypeScript + React 19
+- **Language:** TypeScript (strict)
+- **Key Libraries:** Tailwind CSS v4, Framer Motion (motion that whispers), shadcn/ui Base UI, Lucide React (icons), next/image, next/Link
 
 ### Key Directories
 
 ```
 root/
-├── src/
-│   ├── components/       # Reusable UI components
-│   ├── services/        # API clients, data layers
-│   ├── utils/           # Helpers, utilities
-│   ├── models/          # Data models / domain entities
-│   └── tests/           # Unit / integration tests
-├── context/             # Shared configuration, constants, enums
-├── assets/              # Images, icons, fonts
-├── docs/               # Documentation, design specs
-└── migrations/         # Database migration scripts
+├── app/
+│   ├── layout.tsx          # Root layout, metadata, fonts
+│   ├── page.tsx            # Landing page (scroll sections)
+│   ├── team/
+│   │   └── [slug]/         # Dynamic team member page (blank stub)
+│   └── globals.css         # Tailwind + design tokens
+├── components/
+│   ├── nav/                # Top nav bar (scroll links to section IDs)
+│   ├── sections/           # Hero, Features, HowItWorks, Team, CTA, Footer
+│   └── ui/                 # shadcn Base UI components
+├── lib/                    # Utilities (cn, scroll helpers)
+├── public/
+│   └── img/                # FUEL logo + intentional imagery
+├── context/                # Shared configuration and templates
+└── assets/                 # Images, icons, fonts
 ```
 
 ### System Boundaries
 
-- **Core Domain:** *[What the system primarily handles]*
-- **Integrations:** *[External APIs, third-party services]*
-- **Data Flow:** *[How data moves through the system]*
+- **Core Domain:** Marketing the FUEL app; driving app-store downloads.
+- **Integrations:** App-store download links (Apple App Store), team member dynamic routes.
+- **Data Flow:** Visitor scrolls sections → nav highlights active section → clicks Team card → routes to `/team/[slug]` (blank stub for team to fill).
 
 ## 6. Current Change Request
 
-See `context/change-requests.md` (or equivalent) for all active items and their status.
+Build the FUEL landing page per the 8 design points: POV not template, typography that does work, restrained color system, hierarchy that breathes, imagery with intent, motion that whispers (Framer Motion), mobile designed not shrunk, the invisible expensive stuff.
 
-**Currently on:** *[item number or title]*
+**Currently on:** Template setup (AGENTS.md + context/ folder)
 
 ## 7. Active Branches
 
-- `feature/[short-description]` — *[brief description]*
-- `fix/[short-description]` — *[brief description]*
-- `docs/[topic]` — *[brief description]*
-- `refactor/[task]` — *[brief description]*
+- `feature/fuel-landingpage-plan` — Template updates and landing page scaffolding
 
 ## 8. Contacts
 
-- **Tone King** — Senior Full-Stack Developer, technical lead
-- **[Other team members...]**
+- **Noah Goss** — Product Manager (product contact)
+- **[Engineering lead]** — Build and deploy owner
 
 ## 9. Implementation Progress
 
 ### Completed Phases ✅
 
-- **Phase 1:** *[description]*
-- **Phase 2:** *[description]*
-- **Phase 3:** *[description]*
+- **Phase 0:** Boilerplate Next.js app created (`pnpm create next-app@latest .`), Tailwind v4 installed, AGENTS.md + context/ templates exist (generic)
 
 ### Current Focus
 
-- *[What is being worked on right now]*
-- *Next steps:* *[next concrete task]*
+- **Phase 1:** Update AGENTS.md and context/ templates for the FUEL landing page (this session)
+- *Next steps:* Scaffold components (nav, sections), add Framer Motion, shadcn Base UI, Team dynamic route, verify build + lint
 
 ---
 
-*Last updated: [date]*
-*Version: [1.x]*
+*Last updated: November 5, 2026*
+*Version: 1.0*

@@ -4,11 +4,11 @@ Update this file after every meaningful implementation change.
 
 ## Current Phase
 
-- **Phase 7:** FUEL color tokens + logo consistency — complete
+- **Phase 8:** Static export + Hostinger deploy — complete
 
 ## Current Goal
 
-- Prepare for Hostinger static export (no Vercel)
+- All phases complete. Ready for user to run deploy.ps1 when ready to deploy.
 
 ## Completed
 
@@ -34,14 +34,10 @@ Update this file after every meaningful implementation change.
 - **Phase 4:** Page-level metadata in `app/page.tsx` ✅
 - **Phase 4:** JSON-LD structured data in `app/page.tsx` ✅ — Organization + WebSite
 - **Phase 4:** `public/robots.txt` ✅ (static file served by Next.js)
-- **Phase 4:** `app/sitemap.ts` ✅ — generates /sitemap.xml with /, /coming-soon, /team/noah-goss
-- **Phase 4:** `tsc --noEmit` passes ✅
-- **Phase 4:** `pnpm run lint` passes ✅
+- **Phase 4:** `public/sitemap.xml` ✅ — static sitemap with /, /coming-soon, /team/noah-goss (replaced app/sitemap.ts for static export compatibility)
 - **Phase 5:** Whitespace refined to balanced UI/UX values ✅ — all sections consistent `px-6`, hero `pt-20 pb-24`, grid gap `gap-6`, footer `pt-14 pb-8`, hero badge `self-start w-fit`
 - **Phase 6:** Coming-soon page built (`app/coming-soon/page.tsx` + `app/coming-soon/layout.tsx`) ✅ — email capture form, "Notify Me" CTA, Framer Motion entrance, metadata via layout.tsx
 - **Phase 6:** All "Download on App Store" buttons rerouted to `/coming-soon` (navbar desktop, navbar mobile, hero, CTA) ✅ — removed `window.open`/`APP_STORE_URL`, using `next/Link` instead
-- **Phase 6:** `tsc --noEmit` passes ✅
-- **Phase 6:** `pnpm run lint` passes ✅
 - **Phase 7:** FUEL color tokens added to globals.css (`app/globals.css`) ✅
   - 11 CSS custom properties: olive-base, olive-surface, olive-text-primary, olive-text-muted, olive-success, coral-primary, coral-error, coral-highlight, beige-border, beige-background, beige-text
   - Light mode values: olive `#6b8d58` / coral `#ff6b6b` / beige `#e8e6e3`
@@ -49,29 +45,28 @@ Update this file after every meaningful implementation change.
   - Exposed via `@theme inline` as `--color-fuel-*` Tailwind classes
 - **Phase 7:** All logo.png Image usages consistent with Hero section ✅
   - `components/nav/navbar.tsx`: `h-8 w-8` → `h-8 w-8 rounded-2xl border border-border shadow-2xl`
-  - `components/sections/hero.tsx`: already had `rounded-2xl border border-border shadow-2xl` (reference style)
+  - `components/sections/hero.tsx`: already had `rounded-2xl border border-shadow-2xl` (reference style)
   - `app/coming-soon/page.tsx`: `mx-auto mb-8 h-20 w-20` → `mx-auto mb-8 h-20 w-20 rounded-2xl border border-border shadow-2xl`
-  - Metadata/JSON-LD references (app/page.tsx, app/layout.tsx) are not Image components, no styling needed
-- **Phase 7:** `tsc --noEmit` passes ✅
-- **Phase 7:** `pnpm run lint` passes ✅
-- **Phase 7:** `pnpm run build` passes ✅
+- **Phase 8:** Static export configured (`output: "export"` in next.config.ts) ✅
+- **Phase 8:** `generateStaticParams` added to `app/team/[slug]/page.tsx` ✅ (required for static export of dynamic routes)
+- **Phase 8:** `deploy.ps1` created ✅ — rsync over SSH port 65002 to `u382076499@82.197.83.79:/domains/fuel-us.com/public_html/`, falls back to scp
+- **Phase 8:** `tsc --noEmit` passes ✅
+- **Phase 8:** `pnpm run lint` passes ✅
+- **Phase 8:** `pnpm run build` passes ✅ (static pages: `/`, `/coming-soon`, `/team/noah-goss`, `/sitemap.xml`)
 
 ## In Progress
 
-- Adding FUEL color tokens (olive/coral/beige) to globals.css
-- Making all logo.png usages consistent (rounded-2xl, border border-border, shadow-2xl)
+- None.
 
 ## Next Up
 
-- Verify `tsc --noEmit`, `pnpm run lint`, `pnpm run build` pass
-- Prepare for Hostinger static export (no Vercel)
+- User runs `./deploy.ps1` when ready to deploy to Hostinger
 
 ## Open Questions
 
 - Confirm exact app-store URL(s) for download CTAs (Apple App Store link needed — for post-launch)
 - Confirm team member slugs/content to leave as blank stub placeholders
-- Confirm FUEL logo asset location (`public/img/logo.png` exists — verify usage)
-- Confirm canonical domain URL for sitemap/robots (currently https://fuelapp.com)
+- FUEL logo asset confirmed at `public/img/logo.png` ✅
 
 ## Architecture Decisions
 
@@ -81,14 +76,16 @@ Update this file after every meaningful implementation change.
 - Deploy to Hostinger (static export), not Vercel
 - Restrained color system: olive (`#6b8d58`) / coral (`#ff6b6b`) / beige (`#e8e6e3`) tokens
 - Team dynamic route `/team/[slug]` left blank for team to fill in
-- SEO: Open Graph + Twitter cards + JSON-LD (Organization, WebSite) + public/robots.txt + app/sitemap.ts
+- SEO: Open Graph + Twitter cards + JSON-LD (Organization, WebSite) + public/robots.txt + public/sitemap.xml
+- `app/sitemap.ts` replaced with static `public/sitemap.xml` (incompatible with `output: "export"`)
 - `app/robots.ts` avoided (Turbopack incompatibility); static `public/robots.txt` used instead
 - "Download on App Store" buttons route to `/coming-soon` until App Store launch (email capture), not external App Store URL
+- Static export: `output: "export"` + `images: { unoptimized: true }` (required for `next/Image` in export mode) + `generateStaticParams` on dynamic routes
 
 ## Session Notes
 
-- Branch: `feature/fuel-color-tokens-and-logo-consistency` (off `main`, not committed — user handles commits).
+- Branch: `feature/fuel-static-export-deploy` (off `main`, not committed — user handles commits).
 - Template work committed to main via PR #1; component work on feature branch.
-- Corrections applied: hero badge now reads "Coming Soon to the App Store"; metadata title/description updated from boilerplate.
-- Removed redundant "Meet the team" link from CTA section — Team section precedes CTA.
-- All "Download on App Store" buttons rerouted to `/coming-soon` until App Store launch.
+- All phases complete: templates, components, SEO, whitespace, color tokens, logo consistency, static export, deploy script.
+- Fixed `next/Image` + `output: "export"` incompatibility by adding `images: { unoptimized: true }` to next.config.ts
+- deploy.ps1 ready for user execution: `./deploy.ps1` builds and rsyncs to Hostinger.

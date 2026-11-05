@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 const siteName = "FUEL";
-const siteUrl = "https://fuelapp.com";
+const siteUrl = "https://fuel-us.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

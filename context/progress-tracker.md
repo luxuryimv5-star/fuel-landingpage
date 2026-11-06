@@ -8,7 +8,7 @@ Update this file after every meaningful implementation change.
 
 ## Current Goal
 
-- All phases complete. Ready for user to run deploy.ps1 when ready to deploy.
+- Deployed manually via hPanel File Manager: ran `pnpm build` locally, dragged `out/` contents into `/domains/fuel-us.com/public_html/`. Site live at `https://fuel-us.com/`.
 
 ## Completed
 
@@ -49,10 +49,11 @@ Update this file after every meaningful implementation change.
   - `app/coming-soon/page.tsx`: `mx-auto mb-8 h-20 w-20` → `mx-auto mb-8 h-20 w-20 rounded-2xl border border-border shadow-2xl`
 - **Phase 8:** Static export configured (`output: "export"` in next.config.ts) ✅
 - **Phase 8:** `generateStaticParams` added to `app/team/[slug]/page.tsx` ✅ (required for static export of dynamic routes)
-- **Phase 8:** `deploy.ps1` created ✅ — rsync over SSH port 65002 to `u382076499@82.197.83.79:/domains/fuel-us.com/public_html/`, falls back to scp
+- **Phase 8:** `deploy.ps1` created ✅ — rsync over SSH port 65002 to `u382076499@82.197.83.79:/domains/fuel-us.com/public_html/`, falls back to scp (fixed 3 `$RemoteHost:` variable-reference errors, scp invoked with separate args, local source enumeration with `-Force`, optional `-IdentityFile` + opt-in `-BatchMode`)
 - **Phase 8:** `tsc --noEmit` passes ✅
 - **Phase 8:** `pnpm run lint` passes ✅
 - **Phase 8:** `pnpm run build` passes ✅ (static pages: `/`, `/coming-soon`, `/team/noah-goss`, `/sitemap.xml`)
+- **Phase 8:** Site deployed live at `https://fuel-us.com/` via hPanel File Manager drag-n-drop of `out/` contents ✅
 
 ## In Progress
 
@@ -60,7 +61,7 @@ Update this file after every meaningful implementation change.
 
 ## Next Up
 
-- User runs `./deploy.ps1` when ready to deploy to Hostinger
+- None (site live).
 
 ## Open Questions
 
@@ -93,3 +94,4 @@ Update this file after every meaningful implementation change.
 - Fixed scp fallback: invokes `scp` directly with separate arguments via `& scp -P ... -r ... ...` instead of passing a command string (which PowerShell treated as a command name).
 - Fixed scp local source expansion: enumerates `out/` with `Get-ChildItem -Force` (includes hidden entries) and passes each full path as a separate argument, since OpenSSH scp does not expand local globs like `"$outDir/*"`.
 - Fixed scp SSH auth: passes `StrictHostKeyChecking`/`BatchMode` options to scp (was missing entirely), adds optional `-IdentityFile` parameter, and uses `IdentitiesOnly=yes` so ssh-agent doesn't flood Hostinger with too many keys (fixes "Too many authentication failures"). BatchMode is opt-in via `-BatchMode` switch so interactive password/passphrase prompts remain available by default for this user-run deployment.
+- Site deployed live at `https://fuel-us.com/` via hPanel File Manager: `pnpm build` → drag-n-drop `out/` contents into `/domains/fuel-us.com/public_html/`.

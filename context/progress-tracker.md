@@ -4,7 +4,7 @@ Update this file after every meaningful implementation change.
 
 ## Current Phase
 
-- **Phase 8:** Static export + Hostinger deploy — complete
+- **Phase 9:** Dark mode — ThemeProvider context + pre-hydration script + hydration guard — complete
 
 ## Current Goal
 
@@ -54,6 +54,10 @@ Update this file after every meaningful implementation change.
 - **Phase 8:** `pnpm run lint` passes ✅
 - **Phase 8:** `pnpm run build` passes ✅ (static pages: `/`, `/coming-soon`, `/team/noah-goss`, `/sitemap.xml`)
 - **Phase 8:** Site deployed live at `https://fuel-us.com/` via hPanel File Manager drag-n-drop of `out/` contents ✅
+- **Phase 9:** Dark mode — `components/theme-provider.tsx` rewritten: init effect runs once (empty deps), theme read via ref (no closure-stale reads), `mounted` guard returns `null` until hydrated, `useTheme` context hook exported, stored value validated (`"light"`|`"dark"`|`"device"`, else `"device"`) ✅
+- **Phase 9:** `components/theme-toggle.tsx` now consumes `useTheme` context (no duplicate state); added `type="button"` ✅
+- **Phase 9:** `app/layout.tsx`: inline pre-hydration script sets `dark` class from localStorage before first paint; `suppressHydrationWarning` on `<html>` ✅
+- **Phase 9:** `pnpm run build`, `pnpm run lint`, `npx tsc --noEmit` all pass ✅
 
 ## In Progress
 
@@ -95,3 +99,5 @@ Update this file after every meaningful implementation change.
 - Fixed scp local source expansion: enumerates `out/` with `Get-ChildItem -Force` (includes hidden entries) and passes each full path as a separate argument, since OpenSSH scp does not expand local globs like `"$outDir/*"`.
 - Fixed scp SSH auth: passes `StrictHostKeyChecking`/`BatchMode` options to scp (was missing entirely), adds optional `-IdentityFile` parameter, and uses `IdentitiesOnly=yes` so ssh-agent doesn't flood Hostinger with too many keys (fixes "Too many authentication failures"). BatchMode is opt-in via `-BatchMode` switch so interactive password/passphrase prompts remain available by default for this user-run deployment.
 - Site deployed live at `https://fuel-us.com/` via hPanel File Manager: `pnpm build` → drag-n-drop `out/` contents into `/domains/fuel-us.com/public_html/`.
+- **Phase 9:** Dark mode added — created `components/theme-provider.tsx` and `components/theme-toggle.tsx`; wired `ThemeProvider` into `app/layout.tsx`; added theme toggle to `components/nav/navbar.tsx` (desktop + mobile); `pnpm run build`, `pnpm run lint`, `npx tsc --noEmit` all pass.
+- **Phase 9 findings fixed:** `theme-provider.tsx` — `localStorage.getItem`/`setItem` wrapped in try/catch (privacy-mode safe); removed mounted guard so children render on first pass (SEO-safe static export). `context/progress-tracker.md` updated.

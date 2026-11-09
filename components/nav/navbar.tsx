@@ -6,6 +6,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface NavLink {
   readonly href: string;
@@ -103,6 +104,7 @@ export function Navbar() {
               Download on App Store
             </Button>
           </Link>
+          <ThemeToggle />
         </div>
 
         <div className="md:hidden">
@@ -149,6 +151,7 @@ export function Navbar() {
                   Download on App Store
                 </Button>
               </Link>
+              <ThemeToggle className="w-full justify-start" />
             </div>
           </motion.div>
         )}

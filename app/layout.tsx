@@ -1,3 +1,4 @@
+import Script from "next/script";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -78,31 +79,30 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
-        <script
+        <Script
           id="fuel-theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
-            __html: `
-              (function () {
-                try {
-                  var saved = localStorage.getItem('fuel-theme');
-                  var theme =
-                    saved === 'light' || saved === 'dark' || saved === 'device'
-                      ? saved
-                      : 'device';
-                  var html = document.documentElement;
-                  if (theme === 'dark') {
-                    html.classList.add('dark');
-                  } else if (
-                    theme === 'device' &&
-                    window.matchMedia('(prefers-color-scheme: dark)').matches
-                  ) {
-                    html.classList.add('dark');
-                  }
-                } catch (e) {
-                  // localStorage unavailable — leave theme untouched
+            __html: `(function () {
+              try {
+                var saved = localStorage.getItem('fuel-theme');
+                var theme =
+                  saved === 'light' || saved === 'dark' || saved === 'device'
+                    ? saved
+                    : 'device';
+                var html = document.documentElement;
+                if (theme === 'dark') {
+                  html.classList.add('dark');
+                } else if (
+                  theme === 'device' &&
+                  window.matchMedia('(prefers-color-scheme: dark)').matches
+                ) {
+                  html.classList.add('dark');
                 }
-              })();
-            `,
+              } catch (e) {
+                // localStorage unavailable — leave theme untouched
+              }
+            })();`,
           }}
         />
       </head>

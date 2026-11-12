@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { teamMembers } from "@/components/team-members";
 
 interface TeamMemberPageParams {
   readonly slug: string;
 }
 
 // Blank placeholder roster — the team fills in real member content here.
-const TEAM_MEMBERS: readonly { readonly slug: string; readonly name: string }[] = [
-  { slug: "noah-goss", name: "Noah Goss" },
-];
-
+// Headshots are optional; add `image: "/img/team/<slug>.png"` to a member to show a photo.
 export function generateStaticParams() {
-  return TEAM_MEMBERS.map((member) => ({
+  return teamMembers.map((member) => ({
     slug: member.slug,
   }));
 }
 
 export function generateMetadata({
   params,
-}: { readonly params: TeamMemberPageParams }): Metadata {
-  const member = TEAM_MEMBERS.find((m) => m.slug === params.slug);
+}: {
+  readonly params: TeamMemberPageParams;
+}): Metadata {
+  const member = teamMembers.find((m) => m.slug === params.slug);
   if (!member) {
     return { title: "Team Member | FUEL" };
   }
@@ -34,7 +34,7 @@ export default function TeamMemberPage({
 }: {
   readonly params: TeamMemberPageParams;
 }) {
-  const member = TEAM_MEMBERS.find((m) => m.slug === params.slug);
+  const member = teamMembers.find((m) => m.slug === params.slug);
 
   if (!member) {
     notFound();

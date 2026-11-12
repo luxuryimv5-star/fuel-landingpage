@@ -61,6 +61,8 @@ Update this file after every meaningful implementation change.
 - **Phase 10:** Team section headshot support — roster extracted to `components/team-members.ts` (`image?` optional), cards show `next/Image` headshot or initials fallback ✅
 - **Phase 10:** `app/team/[slug]/page.tsx` consumes shared roster with `generateStaticParams` + `notFound` (async `params` per Next.js 16) ✅
 - **Phase 10:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` pass ✅
+- **Phase 11:** Navbar + Footer moved into `app/layout.tsx` (wrap `{children}`) so they render on every route including `/team/[slug]`; removed duplicates from `app/page.tsx` ✅
+- **Phase 11:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` pass ✅
 
 ## In Progress
 

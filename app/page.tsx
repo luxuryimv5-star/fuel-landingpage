@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Navbar } from "@/components/nav/navbar";
 import { Hero } from "@/components/sections/hero";
 import { Features } from "@/components/sections/features";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { Team } from "@/components/sections/team";
 import { CTA } from "@/components/sections/cta";
-import { Footer } from "@/components/sections/footer";
 
 export const metadata: Metadata = {
   title: "FUEL — Find cheaper, safer gas stations nearby",
@@ -22,8 +20,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 bg-background text-foreground">
-      <Navbar />
+    <>
       <main className="flex-1">
         <Hero />
         <Features />
@@ -31,7 +28,6 @@ export default function Home() {
         <Team />
         <CTA />
       </main>
-      <Footer />
 
       {/* JSON-LD Structured Data */}
       <script
@@ -74,6 +70,6 @@ export default function Home() {
           }),
         }}
       />
-    </div>
+    </>
   );
 }

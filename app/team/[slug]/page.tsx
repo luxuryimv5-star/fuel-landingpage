@@ -14,12 +14,13 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  readonly params: TeamMemberPageParams;
-}): Metadata {
-  const member = teamMembers.find((m) => m.slug === params.slug);
+  readonly params: Promise<TeamMemberPageParams>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const member = teamMembers.find((m) => m.slug === slug);
   if (!member) {
     return { title: "Team Member | FUEL" };
   }
@@ -29,12 +30,13 @@ export function generateMetadata({
   };
 }
 
-export default function TeamMemberPage({
+export default async function TeamMemberPage({
   params,
 }: {
-  readonly params: TeamMemberPageParams;
+  readonly params: Promise<TeamMemberPageParams>;
 }) {
-  const member = teamMembers.find((m) => m.slug === params.slug);
+  const { slug } = await params;
+  const member = teamMembers.find((m) => m.slug === slug);
 
   if (!member) {
     notFound();

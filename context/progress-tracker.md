@@ -58,6 +58,9 @@ Update this file after every meaningful implementation change.
 - **Phase 9:** `components/theme-toggle.tsx` now consumes `useTheme` context (no duplicate state); added `type="button"` ✅
 - **Phase 9:** `app/layout.tsx`: inline pre-hydration script sets `dark` class from localStorage before first paint; `suppressHydrationWarning` on `<html>` ✅
 - **Phase 9:** `pnpm run build`, `pnpm run lint`, `npx tsc --noEmit` all pass ✅
+- **Phase 10:** Team section headshot support — roster extracted to `components/team-members.ts` (`image?` optional), cards show `next/Image` headshot or initials fallback ✅
+- **Phase 10:** `app/team/[slug]/page.tsx` consumes shared roster with `generateStaticParams` + `notFound` ✅
+- **Phase 10:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` pass ✅
 
 ## In Progress
 

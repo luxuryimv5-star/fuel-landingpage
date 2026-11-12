@@ -1,28 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Plus } from "lucide-react";
-
-interface TeamMember {
-  readonly slug: string;
-  readonly name: string;
-  readonly role: string;
-  readonly bio: string;
-}
+import { teamMembers } from "@/components/team-members";
 
 interface TeamProps {
   readonly sectionId?: string;
 }
-
-const TEAM_MEMBERS: readonly TeamMember[] = [
-  {
-    slug: "noah-goss",
-    name: "Noah Goss",
-    role: "Product Manager",
-    bio: "Product lead for FUEL.",
-  },
-];
 
 export function Team({ sectionId = "team" }: TeamProps) {
   return (
@@ -58,30 +43,50 @@ export function Team({ sectionId = "team" }: TeamProps) {
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {TEAM_MEMBERS.map((member) => (
+          {teamMembers.map((member) => (
             <motion.div
               key={member.slug}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.4,
-                delay: 0.2 + TEAM_MEMBERS.indexOf(member) * 0.05,
+                delay: 0.2 + teamMembers.indexOf(member) * 0.05,
                 ease: "easeOut",
               }}
               whileHover={{ y: -4 }}
             >
-              <Link
-                href={`/team/${member.slug}`}
-                className="block"
-              >
+              <Link href={`/team/${member.slug}`} className="block">
                 <div className="flex flex-col items-center text-center">
-                  <div className="w-24 h-24 rounded-full bg-border flex items-center justify-center mb-4">
-                    <Plus className="h-8 w-8 text-muted-foreground" />
+                  <div
+                    className="w-24 h-24 rounded-full overflow-hidden border border-border bg-background mb-4"
+                  >
+                    {member.image ? (
+                      <Image
+                        src={member.image}
+                        alt={`${member.name} headshot`}
+                        width={96}
+                        height={96}
+                        className="w-full h-full object-cover"
+                        priority
+                      />
+                    ) : (
+                      <div
+                        className="w-full h-full flex items-center justify-center bg-fuel-coral-primary text-white font-bold text-xl"
+                      >
+                        {member.name
+                          .split(" ")
+                          .map((part) => part[0])
+                          .join("")
+                          .toUpperCase()}
+                      </div>
+                    )}
                   </div>
                   <h3 className="text-lg font-semibold text-foreground">
                     {member.name}
                   </h3>
-                  <p className="text-sm text-muted-foreground">{member.role}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {member.role}
+                  </p>
                 </div>
               </Link>
             </motion.div>

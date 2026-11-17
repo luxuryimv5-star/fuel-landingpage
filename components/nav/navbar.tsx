@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -24,6 +24,7 @@ const NAV_LINKS: readonly NavLink[] = [
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
+  const prefersReducedMotion = useReducedMotion();
 
   const handleScroll = useCallback((): void => {
     let current = "hero";
@@ -32,7 +33,7 @@ export function Navbar() {
       const element = document.getElementById(id);
       if (element) {
         const rect = element.getBoundingClientRect();
-        if (rect.top <= 100 && rect.bottom >= 100) {
+        if (rect.top <= 80 && rect.bottom >= 80) {
           current = id;
         }
       }
@@ -51,7 +52,9 @@ export function Navbar() {
     const id = href.replace("#", "");
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+      });
     }
     setIsMenuOpen(false);
   };

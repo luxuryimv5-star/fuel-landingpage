@@ -75,6 +75,12 @@ Update this file after every meaningful implementation change.
 - **Phase 15:** Removed per-page `pt-16` from `coming-soon` and `team/[slug]` (handled centrally in layout) ✅
 - **Phase 15:** Removed top padding from hero section (`pt-20`, `sm:pt-28`, `lg:pt-32`) so layout's `pt-16` doesn't over-compensate the homepage ✅
 - **Phase 15:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` all pass ✅
+- **Phase 17:** Section scroll anchors — navbar `handleScroll` threshold refined from `100` to `80` to account for fixed `h-16` navbar; `scroll-margin-[80px]` added to all five sections (Hero, Features, HowItWorks, Team, CTA) so headings aren't hidden behind the fixed navbar when anchors scroll into view ✅
+- **Phase 17:** Added `scroll-behavior: smooth` to `html` in `app/globals.css` so all anchor navigation (native clicks, browser back/forward, direct URL hashes) scrolls with easing instead of snapping instantly ✅
+- **Phase 17:** `pnpm run lint`, `npx tsc --noEmit`, `pnpm run build` all pass ✅
+- **Phase 17:** Reduced-motion override for anchor scrolling — `@media (prefers-reduced-motion: reduce)` sets `scroll-behavior: auto` on `html` in `app/globals.css`, and navbar's `scrollIntoView` uses `behavior: "auto"` when `useReducedMotion()` is active ✅
+- **Phase 17:** Fixed invalid Tailwind utility — replaced `scroll-margin-[80px]` with `scroll-mt-[80px]` in all five sections (Hero, Features, HowItWorks, Team, CTA) so headings clear the fixed navbar when anchors scroll ✅
+- **Phase 17:** `pnpm run lint`, `npx tsc --noEmit`, `pnpm run build` all pass ✅
 - **Phase 16:** Terms & Conditions + Privacy Policy pages — `app/terms/page.tsx` and `app/privacy/page.tsx` built via `components/legal-content.ts` (`TeamMember`-style typed content, `info@fuel-us.com` contact); footer links to `/terms` and `/privacy` added in `components/sections/footer.tsx` ✅ (complete — `lint`, `tsc --noEmit`, `build` all pass)
 
 ## In Progress

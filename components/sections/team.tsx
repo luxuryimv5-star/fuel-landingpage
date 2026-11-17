@@ -84,7 +84,7 @@ export function Team({ sectionId = "team" }: TeamProps) {
   return (
     <section
       id={sectionId}
-      className="py-20 px-6 sm:py-28 lg:py-32 bg-muted"
+      className="py-20 px-6 sm:py-28 lg:py-32 bg-muted scroll-mt-[80px]"
       aria-labelledby="team-heading"
     >
       <div className="max-w-7xl mx-auto">

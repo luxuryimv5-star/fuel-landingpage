@@ -17,7 +17,7 @@ export function Hero({ sectionId = "hero" }: HeroProps) {
   return (
     <section
       id={sectionId}
-      className="relative flex flex-col items-center justify-center pb-24 px-6 sm:pb-32 lg:pb-32 overflow-hidden"
+      className="relative flex flex-col items-center justify-center pb-24 px-6 sm:pb-32 lg:pb-32 overflow-hidden scroll-mt-[80px]"
       aria-labelledby="hero-heading"
     >
       <motion.div

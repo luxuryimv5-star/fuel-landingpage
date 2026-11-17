@@ -15,7 +15,7 @@ export function CTA({ sectionId = "cta" }: CTAProps) {
   return (
     <section
       id={sectionId}
-      className="py-20 px-6 sm:py-28 lg:py-32"
+      className="py-20 px-6 sm:py-28 lg:py-32 scroll-mt-[80px]"
       aria-labelledby="cta-heading"
     >
       <motion.div

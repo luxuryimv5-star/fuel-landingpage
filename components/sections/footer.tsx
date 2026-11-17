@@ -15,9 +15,9 @@ const NAV_LINKS = [
 ] as const;
 
 const SOCIAL_LINKS = [
-  { href: "https://github.com", label: "GitHub", icon: GitBranch },
-  { href: "https://twitter.com", label: "Twitter", icon: X },
-  { href: "https://instagram.com", label: "Instagram", icon: Globe },
+  { href: "/coming-soon", label: "GitHub", icon: GitBranch },
+  { href: "/coming-soon", label: "Twitter", icon: X },
+  { href: "/coming-soon", label: "Instagram", icon: Globe },
 ] as const;
 
 export function Footer() {

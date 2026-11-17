@@ -71,6 +71,10 @@ Update this file after every meaningful implementation change.
 - **Phase 14:** Focus visibility — team member cards reveal immediately (`opacity: 1, y: 0`) when their link receives focus via `onFocus`/`onBlur`, so the focus indicator is never hidden behind a delayed viewport animation ✅
 - **Phase 14:** Framer Motion added to team member page via `TeamMemberContent` client component (kept `generateMetadata`/`generateStaticParams` server-side) ✅
 - **Phase 14:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` all pass ✅
+- **Phase 15:** Fixed header spacing — added `pt-16` to `<main>` in `app/layout.tsx` so all non-home pages clear the fixed `h-16` navbar ✅
+- **Phase 15:** Removed per-page `pt-16` from `coming-soon` and `team/[slug]` (handled centrally in layout) ✅
+- **Phase 15:** Removed top padding from hero section (`pt-20`, `sm:pt-28`, `lg:pt-32`) so layout's `pt-16` doesn't over-compensate the homepage ✅
+- **Phase 15:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` all pass ✅
 
 ## In Progress
 

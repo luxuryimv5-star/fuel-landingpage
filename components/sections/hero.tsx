@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
@@ -12,6 +12,8 @@ interface HeroProps {
 }
 
 export function Hero({ sectionId = "hero" }: HeroProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       id={sectionId}
@@ -19,9 +21,10 @@ export function Hero({ sectionId = "hero" }: HeroProps) {
       aria-labelledby="hero-heading"
     >
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: "easeOut" }}
         className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
       >
         <div className="flex flex-col gap-4 text-center lg:text-left">
@@ -30,9 +33,10 @@ export function Hero({ sectionId = "hero" }: HeroProps) {
           </span>
           <motion.h1
             id="hero-heading"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.1, ease: "easeOut" }}
             className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl leading-tight"
           >
             Find cheaper, safer gas<span className="block lg:hidden"></span>
@@ -40,9 +44,10 @@ export function Hero({ sectionId = "hero" }: HeroProps) {
             stations nearby.
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.2, ease: "easeOut" }}
             className="mt-4 text-lg text-muted-foreground sm:text-xl max-w-xl mx-auto lg:mx-0 leading-relaxed"
           >
             FUEL helps drivers find the cheapest, safest, and most
@@ -67,9 +72,10 @@ export function Hero({ sectionId = "hero" }: HeroProps) {
 
         <div className="flex justify-center lg:justify-end">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+            initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.3, ease: "easeOut" }}
             className="relative hidden lg:block"
           >
             <div className="absolute -inset-1 bg-muted/20 rounded-2xl blur opacity-30 animate-pulse" />

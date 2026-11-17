@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { teamMembers } from "@/components/team-members";
+import { teamMembers, type TeamMember } from "@/components/team-members";
+import { TeamMemberContent } from "@/components/team-member-content";
 
 interface TeamMemberPageParams {
   readonly slug: string;
 }
 
-// Blank placeholder roster — the team fills in real member content here.
-// Headshots are optional; add `image: "/img/team/<slug>.png"` to a member to show a photo.
 export function generateStaticParams() {
   return teamMembers.map((member) => ({
     slug: member.slug,
@@ -20,7 +19,7 @@ export async function generateMetadata({
   readonly params: Promise<TeamMemberPageParams>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const member = teamMembers.find((m) => m.slug === slug);
+  const member: TeamMember | undefined = teamMembers.find((m) => m.slug === slug);
   if (!member) {
     return { title: "Team Member | FUEL" };
   }
@@ -36,7 +35,7 @@ export default async function TeamMemberPage({
   readonly params: Promise<TeamMemberPageParams>;
 }) {
   const { slug } = await params;
-  const member = teamMembers.find((m) => m.slug === slug);
+  const member: TeamMember | undefined = teamMembers.find((m) => m.slug === slug);
 
   if (!member) {
     notFound();
@@ -45,12 +44,7 @@ export default async function TeamMemberPage({
   return (
     <section className="py-24 px-6 sm:py-32 lg:py-40">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground mb-6">
-          {member.name}
-        </h1>
-        <p className="text-lg text-muted-foreground mb-8">
-          Team member page — content to be added by the team.
-        </p>
+        <TeamMemberContent member={member} />
       </div>
     </section>
   );

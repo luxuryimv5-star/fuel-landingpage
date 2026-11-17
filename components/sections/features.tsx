@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   MapPin,
   ShieldCheck,
@@ -68,6 +68,8 @@ const FEATURES: readonly Feature[] = [
 ];
 
 export function Features({ sectionId = "features" }: FeaturesProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       id={sectionId}
@@ -78,17 +80,19 @@ export function Features({ sectionId = "features" }: FeaturesProps) {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <motion.h2
             id="features-heading"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.5, ease: "easeOut" }}
             className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
           >
             Everything you need to fuel smarter
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 0.1, ease: "easeOut" }}
             className="mt-6 text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed"
           >
             Real-time pricing, vehicle matching, and safety scoring — designed
@@ -97,9 +101,10 @@ export function Features({ sectionId = "features" }: FeaturesProps) {
         </div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 0.2, ease: "easeOut" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {FEATURES.map((feature) => {
@@ -107,9 +112,14 @@ export function Features({ sectionId = "features" }: FeaturesProps) {
             return (
               <motion.div
                 key={feature.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 + FEATURES.indexOf(feature) * 0.05, ease: "easeOut" }}
+                initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: prefersReducedMotion ? 0 : 0.4,
+                  delay: prefersReducedMotion ? 0 : 0.2 + FEATURES.indexOf(feature) * 0.05,
+                  ease: "easeOut",
+                }}
                 whileHover={{ y: -4 }}
                 className="group"
               >

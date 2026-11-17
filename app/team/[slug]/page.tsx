@@ -42,7 +42,7 @@ export default async function TeamMemberPage({
   }
 
   return (
-    <section className="py-24 px-6 sm:py-32 lg:py-40">
+    <section className="py-24 px-6 sm:py-28 lg:py-40">
       <div className="max-w-3xl mx-auto">
         <TeamMemberContent member={member} />
       </div>

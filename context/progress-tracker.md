@@ -75,6 +75,7 @@ Update this file after every meaningful implementation change.
 - **Phase 15:** Removed per-page `pt-16` from `coming-soon` and `team/[slug]` (handled centrally in layout) ✅
 - **Phase 15:** Removed top padding from hero section (`pt-20`, `sm:pt-28`, `lg:pt-32`) so layout's `pt-16` doesn't over-compensate the homepage ✅
 - **Phase 15:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` all pass ✅
+- **Phase 16:** Terms & Conditions + Privacy Policy pages — `app/terms/page.tsx` and `app/privacy/page.tsx` built via `components/legal-content.ts` (`TeamMember`-style typed content, `info@fuel-us.com` contact); footer links to `/terms` and `/privacy` added in `components/sections/footer.tsx` ✅ (complete — `lint`, `tsc --noEmit`, `build` all pass)
 
 ## In Progress
 

@@ -10,6 +10,8 @@ const NAV_LINKS = [
   { href: "#features", label: "Features" },
   { href: "#how-it-works", label: "How It Works" },
   { href: "#team", label: "Team" },
+  { href: "/terms", label: "Terms" },
+  { href: "/privacy", label: "Privacy" },
 ] as const;
 
 const SOCIAL_LINKS = [

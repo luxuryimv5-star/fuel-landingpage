@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { GitBranch, X, Globe } from "lucide-react";
 
 const NAV_LINKS = [
@@ -20,6 +20,7 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
   const [year, setYear] = useState<number | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const id = requestAnimationFrame(() => setYear(new Date().getFullYear()));
@@ -31,9 +32,10 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-background pt-14 pb-8 px-6">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.5, ease: "easeOut" }}
         className="max-w-7xl mx-auto"
       >
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
@@ -73,9 +75,10 @@ export function Footer() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 0.1, ease: "easeOut" }}
           className="border-t border-border pt-6 text-center text-xs text-muted-foreground"
         >
           <p>

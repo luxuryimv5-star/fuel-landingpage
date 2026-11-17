@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -10,6 +10,8 @@ interface CTAProps {
 }
 
 export function CTA({ sectionId = "cta" }: CTAProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       id={sectionId}
@@ -17,24 +19,27 @@ export function CTA({ sectionId = "cta" }: CTAProps) {
       aria-labelledby="cta-heading"
     >
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.5, ease: "easeOut" }}
         className="max-w-3xl mx-auto text-center"
       >
         <motion.h2
           id="cta-heading"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 0.1, ease: "easeOut" }}
           className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-6"
         >
           Ready to save on every fill-up?
         </motion.h2>
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 0.2, ease: "easeOut" }}
           className="flex justify-center"
         >
           <Link href="/coming-soon">

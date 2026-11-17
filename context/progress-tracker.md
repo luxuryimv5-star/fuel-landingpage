@@ -63,6 +63,14 @@ Update this file after every meaningful implementation change.
 - **Phase 10:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` pass ✅
 - **Phase 11:** Navbar + Footer moved into `app/layout.tsx` (wrap `{children}`) so they render on every route including `/team/[slug]`; removed duplicates from `app/page.tsx` ✅
 - **Phase 11:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` pass ✅
+- **Phase 12:** In-view motion — converted all mount-time Framer Motion animations (`animate` on mount) to scroll-triggered (`whileInView` + `viewport={{ once: true }}`) across Hero, Features, HowItWorks, Team, CTA, and Footer sections ✅
+- **Phase 12:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` all pass ✅
+- **Phase 13:** Team member page (`app/team/[slug]/page.tsx`) — uses `TeamMember` type from `components/team-members.ts`; conditional headshot image or coral initials above a responsive About/Contribution container (`grid-cols-1` at `sm`, `md:grid-cols-2`); metadata + `generateStaticParams` preserved ✅
+- **Phase 13:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` all pass ✅
+- **Phase 14:** Reduced-motion support — all six sections + team member page use `useReducedMotion()` from Framer Motion; when `prefers-reduced-motion: reduce` is active, `initial` starts at final state and `transition.duration` is 0, so no visible position transitions run ✅
+- **Phase 14:** Focus visibility — team member cards reveal immediately (`opacity: 1, y: 0`) when their link receives focus via `onFocus`/`onBlur`, so the focus indicator is never hidden behind a delayed viewport animation ✅
+- **Phase 14:** Framer Motion added to team member page via `TeamMemberContent` client component (kept `generateMetadata`/`generateStaticParams` server-side) ✅
+- **Phase 14:** `pnpm run lint`, `pnpm run build`, `npx tsc --noEmit` all pass ✅
 
 ## In Progress
 

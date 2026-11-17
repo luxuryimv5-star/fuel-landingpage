@@ -36,7 +36,7 @@ export function HowItWorks({ sectionId = "how-it-works" }: HowItWorksProps) {
   return (
     <section
       id={sectionId}
-      className="py-20 px-6 sm:py-28 lg:py-32"
+      className="py-20 px-6 sm:py-28 lg:py-32 scroll-mt-[80px]"
       aria-labelledby="how-it-works-heading"
     >
       <div className="max-w-7xl mx-auto">

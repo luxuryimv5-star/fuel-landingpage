@@ -73,7 +73,7 @@ export function Features({ sectionId = "features" }: FeaturesProps) {
   return (
     <section
       id={sectionId}
-      className="py-20 px-6 sm:py-28 lg:py-32 bg-background"
+      className="py-20 px-6 sm:py-28 lg:py-32 bg-background scroll-mt-[80px]"
       aria-labelledby="features-heading"
     >
       <div className="max-w-7xl mx-auto">
